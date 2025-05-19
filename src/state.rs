@@ -18,9 +18,9 @@ pub struct MessageStore {
 }
 
 impl MessageStore {
-    pub async fn insert(&self, room: &String, message: Message) {
+    pub async fn insert(&self, room: &str, message: Message) {
         let mut binding = self.messages.write().await;
-        let messages = binding.entry(room.clone()).or_default();
+        let messages = binding.entry(room.to_owned()).or_default();
         messages.push_front(message);
         messages.truncate(20);
     }
